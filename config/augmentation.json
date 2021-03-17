@@ -1,6 +1,0 @@
-{
-    "rotation_range": 30,
-    "width_shift_range": 0.1,
-    "height_shift_range": 0.1,
-    "horizontal_flip": true
-}
