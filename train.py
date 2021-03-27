@@ -59,7 +59,6 @@ image_generator = (image_datagen
 mask_generator = (mask_datagen
                   .flow_from_directory(PATH_MASKS,
                                        target_size=(224, 224),
-                                       color_mode="grayscale",
                                        class_mode=None,
                                        seed=SEED))
 
