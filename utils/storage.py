@@ -1,5 +1,4 @@
 from azureml.core import Datastore, Dataset
-from azureml.data.dataset_factory import FileDatasetFactory
 from azureml.data.datapath import DataPath
 
 
@@ -35,17 +34,19 @@ class DataManager(object):
             fileDataset.register(self.workspace, dataset_name)
         return fileDataset
 
-    def download(self, folder_to_download, path_local):
+    def download(self, dataset_name, path_local):
         """
         Download files from a single folder.
 
         Args:
-            folder_to_download: Folder to download from Datastore.
+            dataset_name: Name of Dataset to be downloaded from Datastore.
             path_local: Path where files from Datastore will be downloaded.
 
+        Returns:
+            List of paths with all files downloaded from Datastore.
+
         """
-        pathInDatastore = DataPath(self.datastore, folder_to_download)
-        dataToDownload = FileDatasetFactory.from_files(pathInDatastore)
+        dataToDownload = self.workspace.datasets[dataset_name]
         pathDownloadedFiles = dataToDownload.download(path_local)
         return pathDownloadedFiles
 
