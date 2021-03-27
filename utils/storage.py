@@ -12,7 +12,7 @@ class DataManager(object):
         self.workspace = workspace
         self.datastore = Datastore.get_default(self.workspace)
 
-    def upload(self, folder_to_upload, path_datastore):
+    def upload(self, folder_to_upload, path_datastore, dataset_name=None):
         """
         Upload files to Azure Blob Storage attached to AzureML Workspace
         """
@@ -21,6 +21,8 @@ class DataManager(object):
         fileDataset = Dataset.File.upload_directory(
             folder_to_upload,
             targetPath)
+        if dataset_name is not None:
+            fileDataset.register(self.workspace, dataset_name)
         return fileDataset
 
     def download(self, folder_to_download, path_local):
