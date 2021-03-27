@@ -14,10 +14,20 @@ class DataManager(object):
 
     def upload(self, folder_to_upload, path_datastore, dataset_name=None):
         """
-        Upload files to Azure Blob Storage attached to AzureML Workspace
+        Upload files to Azure Blob Storage attached to AzureML Workspace.
+
+        Args:
+            folder_to_upload: Local folder to be uploaded to the DataStore.
+            path_datastore: Path in the Datastore where files in
+            folder_to_upload will be stored.
+            dataset_name: Name of the Dataset created as a result ot the
+            upload.
+
+        Returns:
+            Returns a Filedataset of the uploaded folder in Datastore.
+
         """
         targetPath = DataPath(self.datastore, path_datastore)
-        # TODO: Check if these folder have been uploaded
         fileDataset = Dataset.File.upload_directory(
             folder_to_upload,
             targetPath)
@@ -27,7 +37,12 @@ class DataManager(object):
 
     def download(self, folder_to_download, path_local):
         """
-        Download files from a single folder
+        Download files from a single folder.
+
+        Args:
+            folder_to_download: Folder to download from Datastore.
+            path_local: Path where files from Datastore will be downloaded.
+
         """
         pathInDatastore = DataPath(self.datastore, folder_to_download)
         dataToDownload = FileDatasetFactory.from_files(pathInDatastore)
@@ -36,7 +51,18 @@ class DataManager(object):
 
     def splitDataset(self, dataset_name, percentage, seed=None):
         """
-        Split Dataset into two subsets
+        Split Dataset into two subsets.
+
+        Args:
+            dataset_name: Name of the Dataset to be splitted.
+            percentage: Percentage of files to be move to another Dataset
+            seed: Seed number
+
+        Returns:
+            Two Dataset objects the first containing the amount of files
+            specified in percentage, and the other Dataset containing the
+            remaining files
+
         """
         dataset = self.workspace.datasets[dataset_name]
         ds1, ds2 = dataset.random_split(percentage=percentage, seed=seed)
