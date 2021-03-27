@@ -17,9 +17,9 @@ masks_bucket1, masks_bucket2 = splitMasksFolder(
     images_bucket2)
 
 # Copy data of train set
-copyFiles(images_bucket1, directory='data/train', appendParentDir=2)
-copyFiles(masks_bucket1, directory='data/train', appendParentDir=2)
+copyFiles(images_bucket1, directory='data/train', append_parent_dir=2)
+copyFiles(masks_bucket1, directory='data/train', append_parent_dir=2)
 
 # Copy data of eval set
-copyFiles(images_bucket2, directory='data/eval', appendParentDir=2)
-copyFiles(masks_bucket2, directory='data/eval', appendParentDir=2)
+copyFiles(images_bucket2, directory='data/eval', append_parent_dir=2)
+copyFiles(masks_bucket2, directory='data/eval', append_parent_dir=2)
