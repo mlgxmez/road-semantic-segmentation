@@ -33,3 +33,11 @@ class DataManager(object):
         dataToDownload = FileDatasetFactory.from_files(pathInDatastore)
         pathDownloadedFiles = dataToDownload.download(path_local)
         return pathDownloadedFiles
+
+    def splitDataset(self, dataset_name, percentage, seed=None):
+        """
+        Split Dataset into two subsets
+        """
+        dataset = self.workspace.datasets[dataset_name]
+        ds1, ds2 = dataset.random_split(percentage=percentage, seed=seed)
+        return ds1, ds2
