@@ -1,6 +1,8 @@
 # This script builds the model or models
-from tensorflow import keras
 import argparse
+
+from tensorflow import keras
+from azureml.core import Model, Run
 
 from utils.blocks import build_decoder
 
@@ -37,3 +39,15 @@ if args.plot_model:
         show_layer_names=True)
 
 model.save(args.path_model)
+
+# Register the model
+run = Run.get_context()
+ws = run.experiment.workspace
+
+Model.register(
+    workspace=ws,
+    model_path=args.path_model,
+    model_name='segmentation_new',
+    description='Instance of untrained model',
+    model_framework=Model.Framework.TENSORFLOW,
+    model_framework_version='2.3')
