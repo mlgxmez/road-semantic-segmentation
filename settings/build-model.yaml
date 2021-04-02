@@ -1,0 +1,45 @@
+resources:
+  containers:
+  - container: mlops
+    image: mcr.microsoft.com/mlops/python:latest
+
+pr: none
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - model.py
+    - aml_build.py
+
+variables:
+- group: devopsforai-aml-vg
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: 'build_model_instance'
+  displayName: 'Build model instance'
+  condition: succeeded()
+  jobs:
+  - job: 'build_model'
+    condition: succeeded()
+    displayName: 'Build model'
+    container: mlops
+    steps:
+    - task: qetza.replacetokens.replacetokens-task.replace@3
+      displayName: 'Replace tokens'
+      tokenPrefix: '{{'
+      tokenSuffix: '}}'
+      targetFiles: settings/workspace/config.json
+    - task: CopyFiles@2
+      displayName: 'Copy config file'
+      inputs:
+        Contents: $(Build.SourcesDirectory)/settings/workspace/config.json
+        TargetFolder: $(Build.SourcesDirectory)
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: python aml_build.py
