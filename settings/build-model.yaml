@@ -39,7 +39,7 @@ stages:
       displayName: 'Copy config file'
       inputs:
         Contents: $(Build.SourcesDirectory)/settings/workspace/config.json
-        TargetFolder: $(Pipeline.Workspace)/s
+        TargetFolder: /__w/1/s
     - task: Bash@3
       inputs:
         targetType: 'inline'
