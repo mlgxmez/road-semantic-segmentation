@@ -1,5 +1,5 @@
 {
-    "subscription_id": "{{subscription-id}}",
-    "resource_group": "{{resource-group}}",
-    "workspace_name": "{{workspace-name}}"
+    "subscription_id": "{{SUBSCRIPTION_ID}}",
+    "resource_group": "{{RESOURCE_GROUP}}",
+    "workspace_name": "{{WORKSPACE_NAME}}"
 }
