@@ -31,9 +31,10 @@ stages:
     steps:
     - task: qetza.replacetokens.replacetokens-task.replace@3
       displayName: 'Replace tokens'
-      tokenPrefix: '{{'
-      tokenSuffix: '}}'
-      targetFiles: settings/workspace/config.json
+      inputs:
+        tokenPrefix: '{{'
+        tokenSuffix: '}}'
+        targetFiles: settings/workspace/config.json
     - task: CopyFiles@2
       displayName: 'Copy config file'
       inputs:
