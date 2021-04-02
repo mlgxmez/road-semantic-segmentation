@@ -39,7 +39,7 @@ stages:
       displayName: 'Copy config file'
       inputs:
         Contents: $(Build.SourcesDirectory)/settings/workspace/config.json
-        TargetFolder: /__w/1/s
+        TargetFolder: $(build.artifactstagingdirectory)
     - task: Bash@3
       inputs:
         targetType: 'inline'
