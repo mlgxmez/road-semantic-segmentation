@@ -29,7 +29,7 @@ stages:
     displayName: 'Build model'
     container: mlops
     steps:
-    - task: qetza.replacetokens.replacetokens-task.replace@3
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
       displayName: 'Replace tokens'
       inputs:
         tokenPrefix: '{{'
