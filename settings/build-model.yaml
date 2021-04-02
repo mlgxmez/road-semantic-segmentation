@@ -34,12 +34,7 @@ stages:
       inputs:
         tokenPrefix: '{{'
         tokenSuffix: '}}'
-        targetFiles: settings/workspace/config.json
-    - task: CopyFiles@2
-      displayName: 'Copy config file'
-      inputs:
-        Contents: $(Build.SourcesDirectory)/settings/workspace/config.json
-        TargetFolder: $(build.artifactstagingdirectory)
+        targetFiles: config.json
     - task: Bash@3
       inputs:
         targetType: 'inline'
