@@ -1,5 +1,7 @@
 from azureml.core import Datastore, Dataset
 from azureml.data.datapath import DataPath
+from azureml.data.file_dataset import FileDataset
+import os
 
 
 class DataManager(object):
@@ -55,7 +57,7 @@ class DataManager(object):
         Split Dataset into two subsets.
 
         Args:
-            dataset_name: Name of the Dataset to be splitted.
+            dataset_name: FileDataset or name of the Dataset to be splitted.
             percentage: Percentage of files to be move to another Dataset
             seed: Seed number
 
@@ -65,6 +67,27 @@ class DataManager(object):
             remaining files
 
         """
-        dataset = self.workspace.datasets[dataset_name]
+        if isinstance(dataset_name, FileDataset):
+            print('dataset_name is already a FileDataset')
+            dataset = dataset_name
+        else:
+            dataset = self.workspace.datasets[dataset_name]
         ds1, ds2 = dataset.random_split(percentage=percentage, seed=seed)
         return ds1, ds2
+
+    def filterDataset(self, dataset_name, pattern):
+        """
+        Creates a filtered dataset from a registered dataset.
+
+        Args:
+            dataset_name: Name of the source FileDataset from which to
+            obtain the filtered dataset.
+            pattern: Pattern from which to filter the dataset.
+
+        Returns:
+            An unregistered FileDataset filtered by the pattern specified.
+
+        """
+        return Dataset.File.from_files(
+            (self.datastore, os.path.join('data', dataset_name, pattern))
+            )
