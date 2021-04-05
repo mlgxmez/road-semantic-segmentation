@@ -1,0 +1,5 @@
+{
+    "path_data": "{{path_data}}",
+    "augmentation_file": "{{augmenation_file}}",
+    "path_model": "{{path_model}}"
+}
