@@ -17,7 +17,7 @@ VM_SIZE = 'Standard_NC6'
 SEED_NUMBER = 5
 
 # Create workspace from config file
-ws = Workspace.from_config(_file_name='config_az.json')
+ws = Workspace.from_config()
 
 # Create experiment to submit training
 experiment_name = 'road-segmentation-train'
