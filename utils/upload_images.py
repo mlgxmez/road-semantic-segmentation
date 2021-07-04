@@ -13,4 +13,5 @@ ws = Workspace.from_config()
 dm = DataManager(ws)
 _ = dm.upload(
     folder_to_upload=args.target_folder,
-    path_datastore="data")
+    path_datastore="data/training",
+    dataset_name="training")
