@@ -43,7 +43,7 @@ def build_decoder(pool3, pool4, pool5):
 
     output = (layers
               .Conv2DTranspose(
-                  NUM_CLASSES,
+                  1,
                   16,
                   8,
                   padding="same",
