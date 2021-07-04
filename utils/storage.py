@@ -91,3 +91,44 @@ class DataManager(object):
         return Dataset.File.from_files(
             (self.datastore, os.path.join('data', dataset_name, pattern))
             )
+
+
+def validateDataset(dataset1, dataset2, match_chars=9):
+    """
+    This function compares sizes between two FileDataset. And
+    throws an error if there is a mismatch between the number
+    of files in both 'dataset1' and 'dataset2'.
+
+    Args:
+        dataset1: FileDataset object
+        dataset2: Another FileDataset object
+        match_chars: Number of ending characters to match to
+                     detect mismatches in filenames
+
+    """
+    files_dataset1 = sorted(dataset1.to_path())
+    files_dataset2 = sorted(dataset2.to_path())
+    try:
+        assert len(files_dataset1) == len(files_dataset2)
+        print("Both FileDataset contain {} files.".format(len(files_dataset1)))
+    except AssertionError:
+        print("First FileDataset",
+              "contains {} files.".format(len(files_dataset1)))
+        print("Second FileDataset"
+              "contains {} files.".format(len(files_dataset2)))
+
+    valid_count = 0
+    invalid_count = 0
+    for f1, f2 in zip(files_dataset1, files_dataset2):
+        # Count the number of matches of ending filenames
+        match_pos = 0
+        for c1, c2 in zip(f1[::-1], f2[::-1]):
+            if c1 == c2:
+                match_pos += 1
+        if match_pos >= match_chars:
+            valid_count += 1
+        else:
+            invalid_count += 1
+
+    print("Number of matches between datasets: {}".format(valid_count))
+    print("Number of mismatches between datasets: {}".format(invalid_count))
