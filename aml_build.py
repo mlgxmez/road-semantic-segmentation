@@ -21,8 +21,8 @@ compute_target = createAmlCompute(ws, CLUSTER_NAME, VM_SIZE)
 
 # Create run configuration params
 script_run_params = dict(
-    source_directory='.',
-    script='model.py',
+    source_directory='./build',
+    script='build.py',
     arguments=['--path_model', 'models/new'],
     compute_target=compute_target,
     environment=tf_env)
